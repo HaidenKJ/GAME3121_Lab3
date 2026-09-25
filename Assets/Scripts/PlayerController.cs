@@ -63,11 +63,11 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Destroy(gameObject);
-        if(Collision.gameObject.CompareTag("Obstacle"))
-        {
-            Instantiate(ExplosionEffect, transform.position, Quaternion.identity);
-            Destroy(ExplosionEffect);
-        }
+        //if(Collision.gameObject.CompareTag("Obstacle"))
+        //{
+        //    Instantiate(ExplosionEffect, transform.position, Quaternion.identity);
+        //    Destroy(ExplosionEffect);
+        //}
 
     }
 
