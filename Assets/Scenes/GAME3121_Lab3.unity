@@ -610,11 +610,14 @@ MonoBehaviour:
     m_PanelRenderer: {fileID: 919065532}
     m_AuthoringPath:
       m_PathIds: cce9e6e2i
-  buttonRefrence:
+  RestartButtonRefrence:
     m_PanelRenderer: {fileID: 919065532}
     m_AuthoringPath:
       m_PathIds: caf15883i
-  gameManager: {fileID: 1385724733}
+  HSResetButtonRefrence:
+    m_PanelRenderer: {fileID: 919065532}
+    m_AuthoringPath:
+      m_PathIds: 2b7c9526i
 --- !u!1001 &1510422010
 PrefabInstance:
   m_ObjectHideFlags: 0
