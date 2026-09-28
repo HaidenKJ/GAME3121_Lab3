@@ -595,10 +595,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2fd73cafb2c5ce47afaa26436deadba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  gameManager: {fileID: 0}
   thrustForce: 1
   maxSpeed: 5
   boosterFlame: {fileID: 7434528729989737177}
-  ScoreMultiplier: 10
 --- !u!1 &7434528729989737177
 GameObject:
   m_ObjectHideFlags: 0
