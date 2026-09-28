@@ -10,7 +10,7 @@ public class Obstacle : MonoBehaviour
     public float maxSpeed = 150f;
 
     public float maxSpinSpeed = 10f; 
-
+    [SerializeField] public GameObject ExplosionEffect;
     Rigidbody2D rb;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -34,5 +34,13 @@ public class Obstacle : MonoBehaviour
     void Update()
     {
         
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {  
+        if(collision.gameObject.CompareTag("Player"))
+        {     
+            GameObject ExplosionInstance = Instantiate(ExplosionEffect, collision.GetContact(0).point, Quaternion.identity);
+            Destroy(ExplosionInstance, 2f);
+        }
     }
 }
