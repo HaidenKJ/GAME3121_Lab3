@@ -667,6 +667,8 @@ MonoBehaviour:
   musicVolume: 0.25
   sfxVolume: 1
   wallHitVolume: 1.5
+  obstacleHitVolume: 0.5
+  obstacleHitPitch: 1.4
 --- !u!4 &651384644 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 471155588476439623, guid: 0a6203a448109af47b8a4db09db2de57, type: 3}
@@ -1473,9 +1475,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5516800762755714925, guid: b7c115922c1d97645afce77e9514ff52, type: 3}
+      propertyPath: maxSpeed
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516800762755714925, guid: b7c115922c1d97645afce77e9514ff52, type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 1385724733}
+    - target: {fileID: 5516800762755714925, guid: b7c115922c1d97645afce77e9514ff52, type: 3}
+      propertyPath: thrustForce
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6430485724663802194, guid: b7c115922c1d97645afce77e9514ff52, type: 3}
       propertyPath: m_Name
       value: Player
