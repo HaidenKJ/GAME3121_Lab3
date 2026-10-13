@@ -1,4 +1,3 @@
-using Unity.Hierarchy;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,13 +10,13 @@ public class PlayerController : MonoBehaviour
     public GameObject boosterFlame;
 
     Rigidbody2D rb;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private float lastWallSound = -1f;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Mouse.current.leftButton.isPressed)
@@ -46,7 +45,21 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (gameManager != null) gameManager.GameOver();
-        Destroy(gameObject);
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            if (Time.time - lastWallSound > 0.2f)
+            {
+                lastWallSound = Time.time;
+                AudioManager.Instance.PlayWallHit();
+            }
+        }
+        else if (collision.gameObject.GetComponent<Obstacle>() != null)
+        {
+            AudioManager.Instance.StopMusic();
+            AudioManager.Instance.PlayDeath(transform.position);
+
+            if (gameManager != null) gameManager.GameOver();
+            Destroy(gameObject);
+        }
     }
 }
