@@ -15,9 +15,14 @@ public class AudioManager : MonoBehaviour
     [Range(0f, 1f)] public float musicVolume = 0.25f;
     [Range(0f, 2f)] public float sfxVolume = 1f;
     [Range(0f, 2f)] public float wallHitVolume = 1.5f;
+    [Range(0f, 2f)] public float obstacleHitVolume = 0.5f;   // quieter
+
+    [Header("Pitch")]
+    [Range(0.5f, 3f)] public float obstacleHitPitch = 1.4f;  // faster playback (also higher pitch)
 
     private AudioSource musicSource;
     private AudioSource sfxSource;
+    private AudioSource obstacleSource;
     private int lastWallIndex = -1;
 
     void Awake()
@@ -32,6 +37,11 @@ public class AudioManager : MonoBehaviour
 
         sfxSource = gameObject.AddComponent<AudioSource>();
         sfxSource.playOnAwake = false;
+
+        // Dedicated source so changing pitch doesn't affect other sounds
+        obstacleSource = gameObject.AddComponent<AudioSource>();
+        obstacleSource.playOnAwake = false;
+        obstacleSource.pitch = obstacleHitPitch;
     }
 
     void Start() { musicSource.Play(); }
@@ -53,9 +63,16 @@ public class AudioManager : MonoBehaviour
         sfxSource.PlayOneShot(wallHits[index], wallHitVolume);
     }
 
-    public void PlayObstacleHit() { if (obstacleHit != null) sfxSource.PlayOneShot(obstacleHit, sfxVolume); }
-    public void StopMusic()       { musicSource.Stop(); }
+    public void PlayObstacleHit()
+    {
+        if (obstacleHit == null) return;
+        obstacleSource.pitch = obstacleHitPitch; // live tweaking
+        obstacleSource.PlayOneShot(obstacleHit, obstacleHitVolume);
+    }
 
+    public void StopMusic() { musicSource.Stop(); }
+
+    // PlayClipAtPoint keeps playing after the player is destroyed
     public void PlayDeath(Vector3 pos)
     {
         if (deathSound != null) AudioSource.PlayClipAtPoint(deathSound, pos, sfxVolume);

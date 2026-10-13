@@ -16,6 +16,8 @@ public class Obstacle : MonoBehaviour
 
     void Start()
     {
+        lastObstacleSound = -1f; // reset in case domain reload is disabled
+
         float randomSize = Random.Range(minSize, maxSize);
         transform.localScale = new Vector3(randomSize, randomSize, 1);
 
@@ -38,8 +40,8 @@ public class Obstacle : MonoBehaviour
         }
         else if (collision.gameObject.GetComponent<Obstacle>() != null)
         {
-            if (collision.relativeVelocity.magnitude < 0.3f) return; // ignore tiny touches
-            if (Time.time - lastObstacleSound < 0.1f) return;
+            if (collision.relativeVelocity.magnitude < 0.05f) return; // ignore only tiny touches
+            if (Time.time - lastObstacleSound < 0.05f) return;
 
             lastObstacleSound = Time.time;
             AudioManager.Instance.PlayObstacleHit();
