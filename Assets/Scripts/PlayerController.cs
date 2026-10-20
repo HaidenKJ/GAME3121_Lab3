@@ -8,6 +8,9 @@ public class PlayerController : MonoBehaviour
     public float maxSpeed = 5f;
 
     public GameObject boosterFlame;
+    public GameObject trailPrefab; //
+    private GameObject currentTrail; // Reference to the current trail instance
+    public Transform trailPoint; // Point where the trail should be instantiated
 
     Rigidbody2D rb;
     private float lastWallSound = -1f;
@@ -36,10 +39,12 @@ public class PlayerController : MonoBehaviour
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
             boosterFlame.SetActive(true);
+            currentTrail = Instantiate(trailPrefab, trailPoint.transform.position, Quaternion.identity, transform);
         }
         else if (Mouse.current.leftButton.wasReleasedThisFrame)
         {
             boosterFlame.SetActive(false);
+            DetachTrail();
         }
     }
 
@@ -62,4 +67,16 @@ public class PlayerController : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    void DetachTrail() 
+    {
+        if (currentTrail == null) return;
+
+        currentTrail.transform.SetParent(null); // stop following the ship
+        var tr = currentTrail.GetComponent<TrailRenderer>();
+        tr.emitting = false; // no new points
+        Destroy(currentTrail, tr.time); // will remove once fully faded
+        currentTrail = null;
+    }
 }
+
